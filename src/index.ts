@@ -1,3 +1,3 @@
-export default class Alpha8lib {
+import EventEmit from "./lib/eventEmit";
 
-}
+export { EventEmit }
