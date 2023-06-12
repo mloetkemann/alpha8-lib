@@ -7,16 +7,6 @@ interface BookName {
     name: string;
 }
 
-interface ChapterMeta{
-    id: number, 
-    verses: number[]
-}
-interface BookMeta {
-    id: number;
-    chapters: ChapterMeta[];
-
-}
-
 class Book {
 
     constructor(private id: number, private language: string, private name: string, private abbrev: string[]) {
