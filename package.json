@@ -14,6 +14,17 @@
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "prepare": "husky install"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./bible": {
+      "import": "./dist/lib/bible/bible.js",
+      "types": "./dist/lib/bible/bible.d.ts"
+    }
+    
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
