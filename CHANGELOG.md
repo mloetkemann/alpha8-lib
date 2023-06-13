@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.1.0...v1.2.0) (2023-06-13)
+
+
+### Features
+
+* bible parser ([387660e](https://github.com/mloetkemann/alpha8-lib/commit/387660e089fe03ac5e51c98e50afdf42358bd744))
+
 # [1.1.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.0.1...v1.1.0) (2023-05-09)
 
 
