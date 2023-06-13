@@ -1,6 +1,6 @@
 {
   "name": "alpha8-lib",
-  "version": "1.0.1",
+  "version": "1.2.1",
   "description": "A TypeScript Utility Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,6 +13,17 @@
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "prepare": "husky install"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./bible": {
+      "import": "./dist/lib/bible/bible.js",
+      "types": "./dist/lib/bible/bible.d.ts"
+    }
+    
   },
   "commitlint": {
     "extends": [
