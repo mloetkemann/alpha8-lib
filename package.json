@@ -15,17 +15,17 @@
     "prepare": "husky install"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./bible": "./dist/lib/bible/bible.js"
-  },
-  "typesVersions": {
-    "*": {
-      "./": [
-        "./dist/index.d.ts"
-      ],
-      "./bible": [
-        "./dist/lib/bible/bible.d.ts"
-      ]
+    ".": {
+      "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+      }   
+     },
+    "./bible": {
+      "import": {
+          "types": "./dist/lib/bible/bible.d.ts",
+          "default": "./dist/lib/bible/bible.js"
+      }  
     }
   },
   "commitlint": {
