@@ -1,6 +1,6 @@
 {
   "name": "alpha8-lib",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A TypeScript Utility Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,8 +28,6 @@
       }  
 
     }
-    
-    
   },
   "commitlint": {
     "extends": [
@@ -64,7 +62,7 @@
     "husky": "^8.0.0",
     "mocha": "^10.2.0",
     "prettier": "^2.8.8",
-    "semantic-release": "^21.0.2",
+    "semantic-release": "^21.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }
