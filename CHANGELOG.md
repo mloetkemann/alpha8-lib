@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.1...v1.2.2) (2023-06-13)
+
+
+### Bug Fixes
+
+* still wrong export ([c0c2f35](https://github.com/mloetkemann/alpha8-lib/commit/c0c2f35f94562c78143dd869591f226680a005f2))
+
 ## [1.2.1](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.0...v1.2.1) (2023-06-13)
 
 
