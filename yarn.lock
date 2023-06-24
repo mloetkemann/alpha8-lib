@@ -11,6 +11,32 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@alpha8/main@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@alpha8/main@workspace:."
+  dependencies:
+    "@commitlint/cli": ^17.6.3
+    "@commitlint/config-conventional": ^17.6.3
+    "@semantic-release/changelog": ^6.0.3
+    "@semantic-release/git": ^10.0.1
+    "@types/chai": ^4.3.5
+    "@types/mocha": ^10.0.1
+    "@types/node": ^20.1.0
+    "@typescript-eslint/eslint-plugin": ^5.59.2
+    "@typescript-eslint/parser": ^5.59.2
+    chai: ^4.3.7
+    eslint: ^8.40.0
+    eslint-config-prettier: ^8.8.0
+    eslint-plugin-prettier: ^4.2.1
+    mocha: ^10.2.0
+    prettier: ^2.8.8
+    semantic-release: ^21.0.5
+    semantic-release-yarn: ^2.0.0
+    ts-node: ^10.9.1
+    typescript: ^5.0.4
+  languageName: unknown
+  linkType: soft
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.21.4":
   version: 7.22.5
   resolution: "@babel/code-frame@npm:7.22.5"
@@ -1951,7 +1977,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:^8.0.0":
+"cosmiconfig@npm:^8.0.0, cosmiconfig@npm:^8.1.0":
   version: 8.2.0
   resolution: "cosmiconfig@npm:8.2.0"
   dependencies:
@@ -2655,7 +2681,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^11.0.0":
+"fs-extra@npm:^11.0.0, fs-extra@npm:^11.1.0":
   version: 11.1.1
   resolution: "fs-extra@npm:11.1.1"
   dependencies:
@@ -5431,31 +5457,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"root-workspace-0b6124@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "root-workspace-0b6124@workspace:."
-  dependencies:
-    "@commitlint/cli": ^17.6.3
-    "@commitlint/config-conventional": ^17.6.3
-    "@semantic-release/changelog": ^6.0.3
-    "@semantic-release/git": ^10.0.1
-    "@types/chai": ^4.3.5
-    "@types/mocha": ^10.0.1
-    "@types/node": ^20.1.0
-    "@typescript-eslint/eslint-plugin": ^5.59.2
-    "@typescript-eslint/parser": ^5.59.2
-    chai: ^4.3.7
-    eslint: ^8.40.0
-    eslint-config-prettier: ^8.8.0
-    eslint-plugin-prettier: ^4.2.1
-    mocha: ^10.2.0
-    prettier: ^2.8.8
-    semantic-release: ^21.0.5
-    ts-node: ^10.9.1
-    typescript: ^5.0.4
-  languageName: unknown
-  linkType: soft
-
 "run-parallel@npm:^1.1.9":
   version: 1.2.0
   resolution: "run-parallel@npm:1.2.0"
@@ -5483,6 +5484,26 @@ __metadata:
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: cab8f25ae6f1434abee8d80023d7e72b598cf1327164ddab31003c51215526801e40b66c5e65d658a0af1e9d6478cadcb4c745f4bd6751f97d8644786c0978b0
+  languageName: node
+  linkType: hard
+
+"semantic-release-yarn@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "semantic-release-yarn@npm:2.0.0"
+  dependencies:
+    "@semantic-release/error": ^3.0.0
+    aggregate-error: ^4.0.1
+    cosmiconfig: ^8.1.0
+    execa: ^7.0.0
+    fs-extra: ^11.1.0
+    js-yaml: ^4.1.0
+    lodash: ^4.17.21
+    nerf-dart: ^1.0.0
+    read-pkg: ^8.0.0
+    semver: ^7.3.8
+  peerDependencies:
+    semantic-release: ">=19.0.0"
+  checksum: 4b0a7554c1b9409a3907fac6a0fd6e8ef9d9494339862f57d017bc17204040cd3a8a62ef8ea5d5682dce3fc0b80a1251ef2e89a4817b227d48e3fead2a79f893
   languageName: node
   linkType: hard
 
@@ -5569,7 +5590,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.1.2, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.2":
+"semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.1.2, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.2":
   version: 7.5.3
   resolution: "semver@npm:7.5.3"
   dependencies:
