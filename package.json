@@ -17,7 +17,8 @@
     "test": "yarn run test:bible && yarn run test:emitter && yarn run test:parser",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "release": "yarn semantic-release",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint --ext .js,.ts ."
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
