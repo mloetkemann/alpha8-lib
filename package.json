@@ -11,7 +11,8 @@
     "build": "yarn run build:bible",
     "test:bible": "yarn workspace @alpha8/bible test",
     "test": "yarn run test:bible",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "release": "yarn semantic-release"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
@@ -41,8 +42,7 @@
   },
   "release": {
     "branches": [
-      "main",
-      "new-repo-structure"
+      "main"
     ],
     "plugins": [
       "@semantic-release/release-notes-generator",
@@ -50,8 +50,7 @@
       [
         "semantic-release-yarn",
         {
-          "mainWorkspace": "@alpha8/bible",
-          "npmPublish": false
+          "mainWorkspace": "@alpha8/bible"
         }
       ],
       "@semantic-release/git"
