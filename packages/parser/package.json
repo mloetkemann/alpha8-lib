@@ -1,0 +1,15 @@
+{
+  "name": "@alpha8/parser",
+  "version": "0.0.1",
+  "description": "A TypeScript string parsing lib",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:mloetkemann/alpha8-lib.git",
+  "author": "mloetkemann <alpha8lib@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn run lint && tsc -p .",
+    "test": "npx mocha",
+    "lint": "eslint --ext .js,.ts ."
+  }
+}

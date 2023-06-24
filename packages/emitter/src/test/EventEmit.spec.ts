@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import EventEmit from '../lib/eventEmit'
+import EventEmit from '../index'
 
 describe('Event Emitter', () => {
   let called = false

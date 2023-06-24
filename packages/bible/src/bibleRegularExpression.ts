@@ -1,7 +1,5 @@
 export default class BibleRegularExpression {
-  match(
-    val: string
-  ):
+  match(val: string):
     | {
         book: string
         chapter: string

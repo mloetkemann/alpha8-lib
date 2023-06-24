@@ -1,5 +1,5 @@
 {
-  "name": "@alpha8/main", 
+  "name": "@alpha8/main",
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
@@ -8,11 +8,16 @@
   ],
   "scripts": {
     "build:bible": "yarn workspace @alpha8/bible build",
-    "build": "yarn run build:bible",
+    "build:emitter": "yarn workspace @alpha8/emitter build",
+    "build:parser": "yarn workspace @alpha8/parser build",
+    "build": "yarn run build:bible && yarn run build:emitter && yarn run build:parser",
     "test:bible": "yarn workspace @alpha8/bible test",
-    "test": "yarn run test:bible",
+    "test:emitter": "yarn workspace @alpha8/emitter test",
+    "test:parser": "yarn workspace @alpha8/parser test",
+    "test": "yarn run test:bible && yarn run test:emitter && yarn run test:parser",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "release": "yarn semantic-release"
+    "release": "yarn semantic-release",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
@@ -28,6 +33,7 @@
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "prettier": "^2.8.8",
     "semantic-release": "^21.0.5",
