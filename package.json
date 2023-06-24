@@ -57,7 +57,8 @@
       [
         "semantic-release-yarn",
         {
-          "mainWorkspace": "@alpha8/bible"
+          "mainWorkspace": "@alpha8/bible",
+          "npmPublish": false
         }
       ],
       "@semantic-release/git"
