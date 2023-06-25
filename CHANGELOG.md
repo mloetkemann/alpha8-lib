@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/mloetkemann/alpha8-lib/compare/v1.5.0...v1.5.1) (2023-06-25)
+
+
+### Bug Fixes
+
+* dependencies ([f1ce891](https://github.com/mloetkemann/alpha8-lib/commit/f1ce891d44fd5ba9c4ff06d300c08e7b5d5dcec8))
+
 # [1.5.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.0...v1.5.0) (2023-06-25)
 
 
