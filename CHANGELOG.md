@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.0...v1.5.0) (2023-06-25)
+
+
+### Features
+
+* parser ([dc86a0e](https://github.com/mloetkemann/alpha8-lib/commit/dc86a0ec677ab2ab83d6f44a6b2b853c2406b99e))
+
 # [1.4.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.3.1...v1.4.0) (2023-06-24)
 
 
