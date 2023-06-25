@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/mloetkemann/alpha8-lib/compare/v1.5.1...v1.5.2) (2023-06-25)
+
+
+### Bug Fixes
+
+* private package ([0d3df68](https://github.com/mloetkemann/alpha8-lib/commit/0d3df68468b1624ded929976aa7d16eb1e944f88))
+
 ## [1.5.1](https://github.com/mloetkemann/alpha8-lib/compare/v1.5.0...v1.5.1) (2023-06-25)
 
 
