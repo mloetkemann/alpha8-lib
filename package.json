@@ -2,7 +2,7 @@
   "name": "@alpha8/main",
   "version": "1.0.0",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "workspaces": [
     "packages/*"
   ],
