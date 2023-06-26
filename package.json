@@ -1,4 +1,5 @@
 {
+  "name": "@alpha8/main",
   "version": "1.5.2",
   "license": "MIT",
   "workspaces": [
@@ -47,7 +48,8 @@
   },
   "release": {
     "branches": [
-      "main"
+      "main",
+      "new-repo-structure"
     ],
     "plugins": [
       "@semantic-release/release-notes-generator",
