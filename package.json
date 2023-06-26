@@ -1,8 +1,6 @@
 {
-  "name": "@alpha8/main",
-  "version": "1.0.0",
+  "version": "1.5.2",
   "license": "MIT",
-  "private": true,
   "workspaces": [
     "packages/*"
   ],
@@ -57,7 +55,7 @@
       [
         "semantic-release-yarn",
         {
-          "mainWorkspace": "@alpha8/bible"
+          "npmPublish": true
         }
       ],
       "@semantic-release/git"
