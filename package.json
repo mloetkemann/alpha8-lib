@@ -11,21 +11,24 @@
     "build": "yarn run lint && tsc -p .",
     "test": "npx mocha",
     "lint": "eslint --ext .js,.ts .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "prepare": "husky install"
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./bible": {
-      "import": {
-        "types": "./dist/lib/bible/bible.d.ts",
-        "default": "./dist/lib/bible/bible.js"
-      }
+      "types": "./dist/lib/bible/bible.d.ts",
+      "import": "./dist/lib/bible/bible.js"
+    },
+    "./eventEmit": {
+      "types": "./dist/lib/eventEmit.d.ts",
+      "import": "./dist/lib/eventEmit.js"
+    },
+    "./parsing": {
+      "types": "./dist/lib/parsing.d.ts",
+      "import": "./dist/lib/parsing.js"
     }
   },
   "commitlint": {
