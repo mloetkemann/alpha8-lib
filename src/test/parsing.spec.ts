@@ -1,19 +1,16 @@
 import { assert } from 'chai'
-import {parseToNumber, parseToObject, parseToString} from '../lib/parsing'
+import { parseToNumber, parseToObject, parseToString } from '../lib/parsing'
 
 describe('parsing', () => {
-
   it('parse string', async () => {
-    const val = "Test"
+    const val = 'Test'
     let anyValue: unknown
     // eslint-disable-next-line prefer-const
     anyValue = val
 
     const parsedValue = parseToString(anyValue)
-    if(parsedValue)
-      assert.equal(parsedValue, val)
-    else
-      assert.fail("Value undefined")
+    if (parsedValue) assert.equal(parsedValue, val)
+    else assert.fail('Value undefined')
   })
 
   it('parse string undefined', async () => {
@@ -33,14 +30,12 @@ describe('parsing', () => {
     anyValue = val
 
     const parsedValue = parseToNumber(anyValue)
-    if(parsedValue)
-      assert.equal(parsedValue, val)
-    else
-      assert.fail("Value undefined")
+    if (parsedValue) assert.equal(parsedValue, val)
+    else assert.fail('Value undefined')
   })
 
   it('parse number undefined', async () => {
-    const val = "string"
+    const val = 'string'
     let anyValue: unknown
     // eslint-disable-next-line prefer-const
     anyValue = val
@@ -50,20 +45,18 @@ describe('parsing', () => {
   })
 
   it('parse object', async () => {
-    const val = { prop: "value"}
+    const val = { prop: 'value' }
     let anyValue: unknown
     // eslint-disable-next-line prefer-const
     anyValue = val
 
     const parsedValue = parseToObject(anyValue)
-    if(parsedValue)
-      assert.equal(parsedValue, val)
-    else
-      assert.fail("Value undefined")
+    if (parsedValue) assert.equal(parsedValue, val)
+    else assert.fail('Value undefined')
   })
 
   it('parse object null', async () => {
-    const val = "string"
+    const val = 'string'
     let anyValue: unknown
     // eslint-disable-next-line prefer-const
     anyValue = val

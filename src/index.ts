@@ -1,3 +1,3 @@
-import EventEmit from "./lib/eventEmit";
+import EventEmit from './lib/eventEmit'
 
 export { EventEmit }
