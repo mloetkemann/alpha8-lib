@@ -15,20 +15,28 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./bible": {
-      "types": "./dist/lib/bible/bible.d.ts",
-      "import": "./dist/lib/bible/bible.js"
+      "import": {
+        "types": "./dist/lib/bible/bible.d.ts",
+        "default": "./dist/lib/bible/bible.js"
+      }
     },
     "./eventEmit": {
-      "types": "./dist/lib/eventEmit.d.ts",
-      "import": "./dist/lib/eventEmit.js"
+      "import": {
+        "types": "./dist/lib/eventEmit.d.ts",
+        "default": "./dist/lib/eventEmit.js"
+      }
     },
     "./parsing": {
-      "types": "./dist/lib/parsing.d.ts",
-      "import": "./dist/lib/parsing.js"
+      "import": {
+        "types": "./dist/lib/parsing.d.ts",
+        "import": "./dist/lib/parsing.js"
+      }
     }
   },
   "commitlint": {
