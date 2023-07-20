@@ -1,3 +1,10 @@
+## [1.2.6](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.5...v1.2.6) (2023-07-20)
+
+
+### Bug Fixes
+
+* export modules ([b47092e](https://github.com/mloetkemann/alpha8-lib/commit/b47092e0b93a3e3453fb1a80996103dcd4f5fdd5))
+
 ## [1.2.5](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.4...v1.2.5) (2023-06-27)
 
 
