@@ -13,24 +13,6 @@
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./bible": {
-      "types": "./dist/lib/bible/bible.d.ts",
-      "import": "./dist/lib/bible/bible.js"
-    },
-    "./eventEmit": {
-      "types": "./dist/lib/eventEmit.d.ts",
-      "import": "./dist/lib/eventEmit.js"
-    },
-    "./parsing": {
-      "types": "./dist/lib/parsing.d.ts",
-      "import": "./dist/lib/parsing.js"
-    }
-  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
