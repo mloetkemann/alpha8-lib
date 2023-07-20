@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import BibleRegularExpression from './bibleRegularExpression'
 
 interface BookName {
@@ -7,7 +8,7 @@ interface BookName {
   name: string
 }
 
-class Book {
+export class Book {
   constructor(
     private id: number,
     private language: string,
@@ -40,8 +41,9 @@ class BookNamesDataProvider {
   private constructor(private language: string) {}
 
   private init() {
+    const books_path = path.join(path.dirname(path.dirname(path.dirname(__dirname))),`data/books_${this.language}.json`)
     this.books = JSON.parse(
-      fs.readFileSync(`data/books_${this.language}.json`, 'utf-8')
+      fs.readFileSync(books_path, 'utf-8')
     )
     this.buildBookIndex()
   }

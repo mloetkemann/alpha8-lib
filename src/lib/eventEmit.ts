@@ -1,4 +1,4 @@
-type EventListenerFunc = (param: EventParameter) => void
+export type EventListenerFunc = (param: EventParameter) => void
 export class EventParameter extends Map<string, unknown> {
   getString(key: string): string | undefined {
     const value = this.get(key)
