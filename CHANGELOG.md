@@ -1,3 +1,10 @@
+## [1.2.7](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.6...v1.2.7) (2023-07-21)
+
+
+### Bug Fixes
+
+* add chapter and verse checks to bible parser ([57086a2](https://github.com/mloetkemann/alpha8-lib/commit/57086a25136bf5c488b71ca2a45c3a0e08f1d4a5))
+
 ## [1.2.6](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.5...v1.2.6) (2023-07-20)
 
 
