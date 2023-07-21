@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import Bible, { BibleParser, BiblePassage } from '../lib/bible/bible'
+import Bible, {BiblePassage } from '../lib/bible/bible'
 
 describe('bible', () => {
   it('get book by id', async () => {
@@ -45,6 +45,13 @@ describe('bible', () => {
   it('parsing passage wrong verse', async () => {
     assertParserFailed('2. Mose 2, 300')
     assertParserFailed('Josua 4, 9000')
+    assertParserFailed('Josua 4, 1 - 9000')
+  })
+
+  it('parsing passage wrong chapter', async () => {
+    assertParserFailed('2. Mose 200, 3')
+    assertParserFailed('Josua 400, 2')
+    assertParserFailed('Josua 4 - 50')
   })
 
   it('parsing passage chapter to chapter', async () => {

@@ -165,12 +165,12 @@ export default class Bible {
 
   checkChapter(book: number, chapter: number) {
     if(chapter > this.translationDataProvider.getChapters(book) || chapter < 0)
-      throw new Error('Chapter not found')
+      throw new Error(`Chapter ${chapter} (book ID: ${book})not found`)
   }
 
   checkVerse(book: number, chapter: number, verse: number) {
     if(verse > this.translationDataProvider.getVerses(book, chapter) || verse < 0)
-      throw new Error('Verse not found')
+      throw new Error(`Verse ${verse} (book ID: ${book}, chapter: ${chapter}) not found`)
   }
 
   private mapToBookObj(book: BookName): Book {
@@ -237,7 +237,7 @@ export class BiblePassage {
   }
 }
 
-export class BibleParser {
+class BibleParser {
   constructor(private value: string, private bible: Bible) {}
 
   getPassage(): BiblePassage {
