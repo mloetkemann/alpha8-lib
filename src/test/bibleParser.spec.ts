@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import Bible, { BibleParser, BiblePassage } from '../lib/bible/bible'
+import Bible, {BiblePassage } from '../lib/bible/bible'
 
 describe('bible', () => {
   it('get book by id', async () => {
@@ -20,20 +20,38 @@ describe('bible', () => {
   it('format passage', async () => {
     const bible = new Bible('de', 'de_slt')
     assert.equal(
-      new BiblePassage(bible.getBook(5), 1, 1, 2, 5).toString(),
+      new BiblePassage(bible, bible.getBook(5), 1, 1, 2, 5).toString(),
       'Josua 1, 1 - 2, 5'
     )
   })
 
   const assertBibleParser = (passage: string) => {
     const bible = new Bible('de', 'de_slt')
-    const bibleParser = new BibleParser(passage, bible)
-    assert.equal(bibleParser.getPassage().toString(), passage)
+    assert.equal(bible.parse(passage).toString(), passage)
+  }
+
+  const assertParserFailed = (passage: string) => {
+    const bible = new Bible('de', 'de_slt')
+    try {
+      assert.equal(bible.parse(passage).toString(), passage)
+      assert.fail("No exception")
+    }catch(e) { /* empty */ }
   }
 
   it('parsing passage verse', async () => {
     assertBibleParser('2. Mose 2, 3')
     assertBibleParser('Josua 4, 3')
+  })
+  it('parsing passage wrong verse', async () => {
+    assertParserFailed('2. Mose 2, 300')
+    assertParserFailed('Josua 4, 9000')
+    assertParserFailed('Josua 4, 1 - 9000')
+  })
+
+  it('parsing passage wrong chapter', async () => {
+    assertParserFailed('2. Mose 200, 3')
+    assertParserFailed('Josua 400, 2')
+    assertParserFailed('Josua 4 - 50')
   })
 
   it('parsing passage chapter to chapter', async () => {
