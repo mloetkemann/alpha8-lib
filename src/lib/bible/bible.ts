@@ -2,6 +2,13 @@ import fs from 'fs'
 import path from 'path'
 import BibleRegularExpression from './bibleRegularExpression'
 
+const dataPath = path.dirname(path.dirname(path.dirname(__dirname)))
+
+interface translationPath {
+  id: number
+  chapters: { id: number, verses: number }[]
+}
+
 interface BookName {
   id: number
   abbrev: string[]
@@ -33,6 +40,47 @@ export class Book {
   }
 }
 
+class TranslationDataProvider {
+  private translationData!: translationPath[]
+  private static instances = new Map<string, TranslationDataProvider>()
+
+  private constructor(private language: string, private translation: string) {}
+
+  private init() {
+    const translationPath = path.join(dataPath,`data/translation_${this.translation}.json`)
+    this.translationData = JSON.parse(
+      fs.readFileSync(translationPath, 'utf-8')
+    )
+  }
+
+  public static getDataProvider(language: string, translation: string): TranslationDataProvider {
+    let result = TranslationDataProvider.instances.get(translation)
+    if (!result) {
+      result = new TranslationDataProvider(language, translation)
+      result.init()
+      TranslationDataProvider.instances.set(translation, result)
+    }
+    return result
+  }
+
+  getChapters(book: number) : number {
+    try {
+      return this.translationData[book].chapters.length
+    }catch(e) {
+      throw Error('Chapter not found')
+    }
+  }
+
+  getVerses(book: number, chapter: number) : number {
+    try {
+      return this.translationData[book].chapters[chapter].verses
+    }catch(e) {
+      throw Error('Verses not found')
+    }
+  }
+
+}
+
 class BookNamesDataProvider {
   private static instances = new Map<string, BookNamesDataProvider>()
   private books!: BookName[]
@@ -41,9 +89,9 @@ class BookNamesDataProvider {
   private constructor(private language: string) {}
 
   private init() {
-    const books_path = path.join(path.dirname(path.dirname(path.dirname(__dirname))),`data/books_${this.language}.json`)
+    const booksPath = path.join(dataPath,`data/books_${this.language}.json`)
     this.books = JSON.parse(
-      fs.readFileSync(books_path, 'utf-8')
+      fs.readFileSync(booksPath, 'utf-8')
     )
     this.buildBookIndex()
   }
@@ -62,6 +110,7 @@ class BookNamesDataProvider {
     if (!result) {
       result = new BookNamesDataProvider(language)
       result.init()
+      BookNamesDataProvider.instances.set(language, result)
     }
     return result
   }
@@ -87,10 +136,12 @@ class BookNamesDataProvider {
 }
 
 export default class Bible {
-  private bookDataProvider: BookNamesDataProvider | undefined
+  private bookDataProvider: BookNamesDataProvider
+  private translationDataProvider: TranslationDataProvider
 
   constructor(private language: string, private translation: string) {
     this.bookDataProvider = BookNamesDataProvider.getDataProvider(language)
+    this.translationDataProvider = TranslationDataProvider.getDataProvider(language, translation)
   }
 
   private getBookDataProvider(): BookNamesDataProvider {
@@ -112,19 +163,57 @@ export default class Bible {
     return
   }
 
+  checkChapter(book: number, chapter: number) {
+    if(chapter > this.translationDataProvider.getChapters(book) || chapter < 0)
+      throw new Error('Chapter not found')
+  }
+
+  checkVerse(book: number, chapter: number, verse: number) {
+    if(verse > this.translationDataProvider.getVerses(book, chapter) || verse < 0)
+      throw new Error('Verse not found')
+  }
+
   private mapToBookObj(book: BookName): Book {
     return new Book(book.id, this.language, book.name, book.abbrev)
+  }
+
+  parse(value: string) : BiblePassage {
+    const parser = new BibleParser(value, this)
+    return parser.getPassage()
   }
 }
 
 export class BiblePassage {
+
+  private book: Book
   constructor(
-    private book: Book,
+    private bible: Bible,
+    private _book: Book | number,
     private chapter: number,
     private verse?: number,
     private toChapter?: number,
     private toVerse?: number
-  ) {}
+  ) {
+
+    const book = (( _book instanceof Book ) ? _book : bible.findBook(_book.toString()))
+    if(!book)
+      throw new Error(`Could not find book ${_book}`)
+    this.book = book
+
+    bible.checkChapter(this.book.getId(), this.chapter)
+    if(this.toChapter) {
+      bible.checkChapter(this.book.getId(), this.toChapter)
+      if(this.toVerse)
+        bible.checkVerse(this.book.getId(), this.toChapter, this.toVerse)
+    }else {
+
+      if(this.toVerse)
+        bible.checkVerse(this.book.getId(), this.chapter, this.toVerse)
+    }
+
+    if(this.verse)
+      bible.checkVerse(this.book.getId(), this.chapter, this.verse)
+  }
 
   toString(): string {
     if (this.toChapter && this.toVerse) {
@@ -161,6 +250,7 @@ export class BibleParser {
         }
         if (regularExpResult.verse && !regularExpResult.toVerse) {
           return new BiblePassage(
+            this.bible,
             book,
             parseInt(regularExpResult.chapter),
             parseInt(regularExpResult.verse),
@@ -169,6 +259,7 @@ export class BibleParser {
           )
         } else {
           return new BiblePassage(
+            this.bible,
             book,
             parseInt(regularExpResult.chapter),
             parseInt(regularExpResult.verse),
