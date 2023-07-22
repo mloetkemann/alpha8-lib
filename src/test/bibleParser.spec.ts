@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import Bible, {BiblePassage } from '../lib/bible/bible'
+import Bible, { BiblePassage } from '../lib/bible/bible'
 
 describe('bible', () => {
   it('get book by id', async () => {
@@ -25,6 +25,20 @@ describe('bible', () => {
     )
   })
 
+  it('map to json', async () => {
+    const bible = new Bible('de', 'de_slt')
+    assert.equal(
+      bible.parse('2. Mose 3, 1').toJson(),
+      '{"book":1,"chapter":3,"verse":1,"toVerse":null,"language":"de","translation":"de_slt"}'
+    )
+  })
+
+  it('json map to obj', async () => {
+    const value =
+      '{"book":1,"chapter":3,"verse":1,"toVerse":null,"language":"de","translation":"de_slt"}'
+    assert.equal(BiblePassage.convertToObject(value).toString(), '2. Mose 3, 1')
+  })
+
   const assertBibleParser = (passage: string) => {
     const bible = new Bible('de', 'de_slt')
     assert.equal(bible.parse(passage).toString(), passage)
@@ -34,8 +48,10 @@ describe('bible', () => {
     const bible = new Bible('de', 'de_slt')
     try {
       assert.equal(bible.parse(passage).toString(), passage)
-      assert.fail("No exception")
-    }catch(e) { /* empty */ }
+      assert.fail('No exception')
+    } catch (e) {
+      /* empty */
+    }
   }
 
   it('parsing passage verse', async () => {

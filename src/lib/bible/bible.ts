@@ -6,7 +6,17 @@ const dataPath = path.dirname(path.dirname(path.dirname(__dirname)))
 
 interface translationPath {
   id: number
-  chapters: { id: number, verses: number }[]
+  chapters: { id: number; verses: number }[]
+}
+
+interface BiblePassageRaw {
+  book: number
+  chapter: number
+  verse?: number
+  toChapter?: number
+  toVerse?: number
+  translation: string
+  language: string
 }
 
 interface BookName {
@@ -47,13 +57,17 @@ class TranslationDataProvider {
   private constructor(private language: string, private translation: string) {}
 
   private init() {
-    const translationPath = path.join(dataPath,`data/translation_${this.translation}.json`)
-    this.translationData = JSON.parse(
-      fs.readFileSync(translationPath, 'utf-8')
+    const translationPath = path.join(
+      dataPath,
+      `data/translation_${this.translation}.json`
     )
+    this.translationData = JSON.parse(fs.readFileSync(translationPath, 'utf-8'))
   }
 
-  public static getDataProvider(language: string, translation: string): TranslationDataProvider {
+  public static getDataProvider(
+    language: string,
+    translation: string
+  ): TranslationDataProvider {
     let result = TranslationDataProvider.instances.get(translation)
     if (!result) {
       result = new TranslationDataProvider(language, translation)
@@ -63,22 +77,21 @@ class TranslationDataProvider {
     return result
   }
 
-  getChapters(book: number) : number {
+  getChapters(book: number): number {
     try {
       return this.translationData[book].chapters.length
-    }catch(e) {
+    } catch (e) {
       throw Error('Chapter not found')
     }
   }
 
-  getVerses(book: number, chapter: number) : number {
+  getVerses(book: number, chapter: number): number {
     try {
       return this.translationData[book].chapters[chapter].verses
-    }catch(e) {
+    } catch (e) {
       throw Error('Verses not found')
     }
   }
-
 }
 
 class BookNamesDataProvider {
@@ -89,10 +102,8 @@ class BookNamesDataProvider {
   private constructor(private language: string) {}
 
   private init() {
-    const booksPath = path.join(dataPath,`data/books_${this.language}.json`)
-    this.books = JSON.parse(
-      fs.readFileSync(booksPath, 'utf-8')
-    )
+    const booksPath = path.join(dataPath, `data/books_${this.language}.json`)
+    this.books = JSON.parse(fs.readFileSync(booksPath, 'utf-8'))
     this.buildBookIndex()
   }
 
@@ -141,7 +152,10 @@ export default class Bible {
 
   constructor(private language: string, private translation: string) {
     this.bookDataProvider = BookNamesDataProvider.getDataProvider(language)
-    this.translationDataProvider = TranslationDataProvider.getDataProvider(language, translation)
+    this.translationDataProvider = TranslationDataProvider.getDataProvider(
+      language,
+      translation
+    )
   }
 
   private getBookDataProvider(): BookNamesDataProvider {
@@ -164,27 +178,39 @@ export default class Bible {
   }
 
   checkChapter(book: number, chapter: number) {
-    if(chapter > this.translationDataProvider.getChapters(book) || chapter < 0)
+    if (chapter > this.translationDataProvider.getChapters(book) || chapter < 0)
       throw new Error(`Chapter ${chapter} (book ID: ${book})not found`)
   }
 
   checkVerse(book: number, chapter: number, verse: number) {
-    if(verse > this.translationDataProvider.getVerses(book, chapter) || verse < 0)
-      throw new Error(`Verse ${verse} (book ID: ${book}, chapter: ${chapter}) not found`)
+    if (
+      verse > this.translationDataProvider.getVerses(book, chapter) ||
+      verse < 0
+    )
+      throw new Error(
+        `Verse ${verse} (book ID: ${book}, chapter: ${chapter}) not found`
+      )
+  }
+
+  getTranslation(): string {
+    return this.translation
+  }
+
+  getLanguage(): string {
+    return this.language
   }
 
   private mapToBookObj(book: BookName): Book {
     return new Book(book.id, this.language, book.name, book.abbrev)
   }
 
-  parse(value: string) : BiblePassage {
+  parse(value: string): BiblePassage {
     const parser = new BibleParser(value, this)
     return parser.getPassage()
   }
 }
 
 export class BiblePassage {
-
   private book: Book
   constructor(
     private bible: Bible,
@@ -194,24 +220,21 @@ export class BiblePassage {
     private toChapter?: number,
     private toVerse?: number
   ) {
-
-    const book = (( _book instanceof Book ) ? _book : bible.findBook(_book.toString()))
-    if(!book)
-      throw new Error(`Could not find book ${_book}`)
+    const book = typeof _book === 'number' ? bible.getBook(_book) : _book
+    if (!book) throw new Error(`Could not find book ${_book}`)
     this.book = book
 
     bible.checkChapter(this.book.getId(), this.chapter)
-    if(this.toChapter) {
+    if (this.toChapter) {
       bible.checkChapter(this.book.getId(), this.toChapter)
-      if(this.toVerse)
+      if (this.toVerse)
         bible.checkVerse(this.book.getId(), this.toChapter, this.toVerse)
-    }else {
-
-      if(this.toVerse)
+    } else {
+      if (this.toVerse)
         bible.checkVerse(this.book.getId(), this.chapter, this.toVerse)
     }
 
-    if(this.verse)
+    if (this.verse)
       bible.checkVerse(this.book.getId(), this.chapter, this.verse)
   }
 
@@ -234,6 +257,36 @@ export class BiblePassage {
     return `${this.book.getName()} ${this.chapter}, ${this.verse} - ${
       this.toChapter
     }, ${this.toVerse}`
+  }
+
+  toRaw(): BiblePassageRaw {
+    return {
+      book: this.book.getId(),
+      chapter: this.chapter,
+      verse: this.verse,
+      toChapter: this.toChapter,
+      toVerse: this.toVerse,
+      language: this.bible.getLanguage(),
+      translation: this.bible.getTranslation(),
+    }
+  }
+
+  toJson(): string {
+    return JSON.stringify(this.toRaw())
+  }
+
+  static convertToObject(value: BiblePassageRaw | string): BiblePassage {
+    if (typeof value === 'string') {
+      return BiblePassage.convertToObject(JSON.parse(value))
+    }
+    return new BiblePassage(
+      new Bible(value.language, value.translation),
+      value.book,
+      value.chapter,
+      value.verse,
+      value.toChapter,
+      value.toVerse
+    )
   }
 }
 
