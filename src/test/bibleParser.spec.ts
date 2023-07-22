@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import Bible, {BiblePassage } from '../lib/bible/bible'
+import Bible, { BiblePassage } from '../lib/bible/bible'
 
 describe('bible', () => {
   it('get book by id', async () => {
@@ -34,8 +34,10 @@ describe('bible', () => {
     const bible = new Bible('de', 'de_slt')
     try {
       assert.equal(bible.parse(passage).toString(), passage)
-      assert.fail("No exception")
-    }catch(e) { /* empty */ }
+      assert.fail('No exception')
+    } catch (e) {
+      /* empty */
+    }
   }
 
   it('parsing passage verse', async () => {
