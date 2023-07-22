@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.7...v1.3.0) (2023-07-22)
+
+
+### Features
+
+* **bible:** map bible passage to json ([b4e3e4e](https://github.com/mloetkemann/alpha8-lib/commit/b4e3e4e695a926c1b9945752936a87dfccb64bd3))
+
 ## [1.2.7](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.6...v1.2.7) (2023-07-21)
 
 
