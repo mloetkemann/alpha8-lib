@@ -9,6 +9,16 @@ interface translationPath {
   chapters: { id: number; verses: number }[]
 }
 
+interface BiblePassageRaw {
+  book: number
+  chapter: number
+  verse?: number
+  toChapter?: number
+  toVerse?: number
+  translation: string
+  language: string
+}
+
 interface BookName {
   id: number
   abbrev: string[]
@@ -182,6 +192,14 @@ export default class Bible {
       )
   }
 
+  getTranslation(): string {
+    return this.translation
+  }
+
+  getLanguage(): string {
+    return this.language
+  }
+
   private mapToBookObj(book: BookName): Book {
     return new Book(book.id, this.language, book.name, book.abbrev)
   }
@@ -240,6 +258,33 @@ export class BiblePassage {
     return `${this.book.getName()} ${this.chapter}, ${this.verse} - ${
       this.toChapter
     }, ${this.toVerse}`
+  }
+
+  toRaw(): BiblePassageRaw {
+    return {
+      book: this.book.getId(),
+      chapter: this.chapter,
+      verse: this.verse,
+      toChapter: this.toChapter,
+      toVerse: this.toVerse,
+      language: this.bible.getLanguage(),
+      translation: this.bible.getTranslation(),
+    }
+  }
+
+  toJson(): string {
+    return JSON.stringify(this.toRaw)
+  }
+
+  static convertToObject(value: BiblePassageRaw): BiblePassage {
+    return new BiblePassage(
+      new Bible(value.language, value.translation),
+      value.book,
+      value.chapter,
+      value.verse,
+      value.toChapter,
+      value.toVerse
+    )
   }
 }
 
