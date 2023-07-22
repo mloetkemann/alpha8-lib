@@ -25,6 +25,20 @@ describe('bible', () => {
     )
   })
 
+  it('map to json', async () => {
+    const bible = new Bible('de', 'de_slt')
+    assert.equal(
+      bible.parse('2. Mose 3, 1').toJson(),
+      '{"book":1,"chapter":3,"verse":1,"toVerse":null,"language":"de","translation":"de_slt"}'
+    )
+  })
+
+  it('json map to obj', async () => {
+    const value =
+      '{"book":1,"chapter":3,"verse":1,"toVerse":null,"language":"de","translation":"de_slt"}'
+    assert.equal(BiblePassage.convertToObject(value).toString(), '2. Mose 3, 1')
+  })
+
   const assertBibleParser = (passage: string) => {
     const bible = new Bible('de', 'de_slt')
     assert.equal(bible.parse(passage).toString(), passage)

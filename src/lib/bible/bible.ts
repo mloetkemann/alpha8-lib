@@ -220,8 +220,7 @@ export class BiblePassage {
     private toChapter?: number,
     private toVerse?: number
   ) {
-    const book =
-      _book instanceof Book ? _book : bible.findBook(_book.toString())
+    const book = typeof _book === 'number' ? bible.getBook(_book) : _book
     if (!book) throw new Error(`Could not find book ${_book}`)
     this.book = book
 
@@ -273,10 +272,13 @@ export class BiblePassage {
   }
 
   toJson(): string {
-    return JSON.stringify(this.toRaw)
+    return JSON.stringify(this.toRaw())
   }
 
-  static convertToObject(value: BiblePassageRaw): BiblePassage {
+  static convertToObject(value: BiblePassageRaw | string): BiblePassage {
+    if (typeof value === 'string') {
+      return BiblePassage.convertToObject(JSON.parse(value))
+    }
     return new BiblePassage(
       new Bible(value.language, value.translation),
       value.book,
