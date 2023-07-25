@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/mloetkemann/alpha8-lib/compare/v1.3.0...v1.3.1) (2023-07-25)
+
+
+### Bug Fixes
+
+* dirname ([#18](https://github.com/mloetkemann/alpha8-lib/issues/18)) ([2d9866f](https://github.com/mloetkemann/alpha8-lib/commit/2d9866fdf6dae6cae158490a36225fe304982ec2))
+
 # [1.3.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.7...v1.3.0) (2023-07-22)
 
 
