@@ -1,8 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 import BibleRegularExpression from './bibleRegularExpression'
+import dirname from './dirname.cjs'
 
-const dataPath = path.dirname(path.dirname(path.dirname(__dirname)))
+//const dirname = mod.default
+const dataPath = path.dirname(path.dirname(path.dirname(dirname)))
 
 interface translationPath {
   id: number
