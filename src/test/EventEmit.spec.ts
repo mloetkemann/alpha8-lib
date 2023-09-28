@@ -6,22 +6,24 @@ describe('Event Emitter', () => {
 
   it('register and trigger Event', async () => {
     called = false
-    const emitter = EventEmit.getEmitter()
-    emitter.registerEvent('event')
+    const emitter = await EventEmit.getEmitter()
+    await emitter.registerEvent('event')
     emitter.on('event', () => (called = true))
     await emitter.trigger('event', { __message: 'Test Event' })
     assert.equal(called, true)
   })
   it('listener for "__all" event', async () => {
     called = false
-    const emitter = EventEmit.getEmitter()
+    const emitter = await EventEmit.getEmitter()
+    await emitter.registerEvent('__all')
     emitter.on('__all', () => (called = true))
     await emitter.trigger('event', { __message: 'Test Event' })
     assert.equal(called, true)
   })
   it('listener for "__log" event', async () => {
     called = false
-    const emitter = EventEmit.getEmitter()
+    const emitter = await EventEmit.getEmitter()
+    await emitter.registerEvent('__log')
     emitter.on('__log', param => {
       if (
         param.get('__message') == 'Test Error' &&
