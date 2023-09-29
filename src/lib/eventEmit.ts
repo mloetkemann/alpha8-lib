@@ -2,6 +2,26 @@ import amqp from 'amqplib'
 import 'dotenv/config'
 
 const ENV_EVENTEMITTER_DRIVER = 'npm_package_alpha8Config_eventDriver'
+const ENV_EVENTEMITTER_DRIVER_PRIMARY = 'EVENT_DRIVER'
+const ENV_RABBITMQ_HOST = 'RABBITMQ_HOST'
+const ENV_RABBITMQ_PORT = 'RABBITMQ_PORT'
+
+function get_event_emitter_driver(): string {
+  let result = process.env[ENV_EVENTEMITTER_DRIVER_PRIMARY]
+  if (!result) result = process.env[ENV_EVENTEMITTER_DRIVER]
+  if (!result) result = 'local'
+
+  return result
+}
+
+function get_rabbitmq_url(): string {
+  const host = process.env[ENV_RABBITMQ_HOST]
+  const port = process.env[ENV_RABBITMQ_PORT]
+  if (!host || !port) {
+    throw Error('RabbitMQ URL not found')
+  }
+  return `amqp://${host}:${port}`
+}
 
 export type EventListenerFunc = (param: EventParameter) => void
 export class EventParameter extends Map<string, unknown> {
@@ -23,7 +43,7 @@ export default class EventEmit {
   private static inst: EventEmit
 
   public static async getEmitter(): Promise<EventEmit> {
-    const driver = process.env[ENV_EVENTEMITTER_DRIVER]
+    const driver = get_event_emitter_driver()
     if (!EventEmit.inst) {
       if (driver === 'rabbitmq') {
         EventEmit.inst = new RabbitMQEventEmitter()
@@ -104,7 +124,7 @@ class RabbitMQEventEmitter extends EventEmit {
   private connection: amqp.Connection | undefined
   async connectQueue(): Promise<[amqp.Connection, amqp.Channel] | undefined> {
     try {
-      const connection = await amqp.connect('amqp://192.168.99.100:5672')
+      const connection = await amqp.connect(get_rabbitmq_url())
       const channel = await connection.createChannel()
       return [connection, channel]
     } catch (error) {
