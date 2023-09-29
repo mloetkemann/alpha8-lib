@@ -1023,6 +1023,16 @@ alpha8-lib@^1.3.1:
   resolved "https://registry.yarnpkg.com/alpha8-lib/-/alpha8-lib-1.3.1.tgz#2bc55774eb13516fb615747eedca0c9ac9ee53ce"
   integrity sha512-51FeO1M5w3g4BKegoXFwJtdZn21zF54dFl/bcX8za5C5wDYAS1YxEGwc2PhqE3W1r0WWuMAkNfT4nUZFHUmFlw==
 
+alpha8-lib@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/alpha8-lib/-/alpha8-lib-1.4.0.tgz#df5d021979a790407c0e4fd890839b2e56744755"
+  integrity sha512-ZHif+8XFstX5a7/nqMBa2kiB/LpTHzW+LxBtyew1SOzgb2hQteSK6/C+13tHTbqdU9Zfwv5bJfmOYnXTQalb4g==
+  dependencies:
+    "@types/amqplib" "^0.10.2"
+    alpha8-lib "^1.3.1"
+    amqplib "^0.10.3"
+    dotenv "^16.3.1"
+
 amqplib@^0.10.3:
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/amqplib/-/amqplib-0.10.3.tgz#e186a2f74521eb55ec54db6d25ae82c29c1f911a"
