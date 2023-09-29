@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.0...v1.4.1) (2023-09-29)
+
+
+### Bug Fixes
+
+* dependencies ([#21](https://github.com/mloetkemann/alpha8-lib/issues/21)) ([8697a49](https://github.com/mloetkemann/alpha8-lib/commit/8697a4936ef0b5c99d40c17ba5c8a8127b88e2de))
+* remove fix ip ([#20](https://github.com/mloetkemann/alpha8-lib/issues/20)) ([fed37e6](https://github.com/mloetkemann/alpha8-lib/commit/fed37e69b83c8bd165729ef2e688b843c5149434))
+
 # [1.4.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.3.1...v1.4.0) (2023-09-28)
 
 
