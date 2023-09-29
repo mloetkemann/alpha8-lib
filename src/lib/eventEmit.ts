@@ -82,7 +82,6 @@ export default class EventEmit {
 
   async trigger(event: string, parameter?: object) {
     this.triggerEvent('__all', parameter)
-
     await this.triggerEvent(event, parameter)
 
     this.triggerEvent('__log', {
