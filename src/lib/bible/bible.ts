@@ -1,10 +1,21 @@
 import fs from 'fs'
 import path from 'path'
 import BibleRegularExpression from './bibleRegularExpression'
-import dirname from './dirname.cjs'
 
-//const dirname = mod.default
-const dataPath = path.dirname(path.dirname(path.dirname(dirname)))
+const dataPathNodeModules = 'node_modules/alpha8-lib/data/'
+const dataPath = 'data/'
+const encoding: BufferEncoding = 'utf-8'
+
+function readFile(filename: string, encoding?: BufferEncoding): string {
+  let filePpath = path.join(dataPathNodeModules, filename)
+  if (fs.existsSync(filePpath))
+    return fs.readFileSync(filePpath, { encoding: encoding }).toString()
+
+  filePpath = path.join(dataPath, filename)
+  if (fs.existsSync(filePpath)) return fs.readFileSync(filePpath).toString()
+
+  throw Error('File not found')
+}
 
 interface translationPath {
   id: number
@@ -59,11 +70,8 @@ class TranslationDataProvider {
   private constructor(private language: string, private translation: string) {}
 
   private init() {
-    const translationPath = path.join(
-      dataPath,
-      `data/translation_${this.translation}.json`
-    )
-    this.translationData = JSON.parse(fs.readFileSync(translationPath, 'utf-8'))
+    const filename = `translation_${this.translation}.json`
+    this.translationData = JSON.parse(readFile(filename, encoding))
   }
 
   public static getDataProvider(
@@ -104,8 +112,8 @@ class BookNamesDataProvider {
   private constructor(private language: string) {}
 
   private init() {
-    const booksPath = path.join(dataPath, `data/books_${this.language}.json`)
-    this.books = JSON.parse(fs.readFileSync(booksPath, 'utf-8'))
+    const filename = `books_${this.language}.json`
+    this.books = JSON.parse(readFile(filename, encoding))
     this.buildBookIndex()
   }
 
