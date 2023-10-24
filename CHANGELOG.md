@@ -1,3 +1,25 @@
+## [1.4.1](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.0...v1.4.1) (2023-09-29)
+
+
+### Bug Fixes
+
+* dependencies ([#21](https://github.com/mloetkemann/alpha8-lib/issues/21)) ([8697a49](https://github.com/mloetkemann/alpha8-lib/commit/8697a4936ef0b5c99d40c17ba5c8a8127b88e2de))
+* remove fix ip ([#20](https://github.com/mloetkemann/alpha8-lib/issues/20)) ([fed37e6](https://github.com/mloetkemann/alpha8-lib/commit/fed37e69b83c8bd165729ef2e688b843c5149434))
+
+# [1.4.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.3.1...v1.4.0) (2023-09-28)
+
+
+### Features
+
+* rabbitmq message broker ([#19](https://github.com/mloetkemann/alpha8-lib/issues/19)) ([0986dc5](https://github.com/mloetkemann/alpha8-lib/commit/0986dc54e93317a6db6e1bb00e4de7a427e09dc1))
+
+## [1.3.1](https://github.com/mloetkemann/alpha8-lib/compare/v1.3.0...v1.3.1) (2023-07-25)
+
+
+### Bug Fixes
+
+* dirname ([#18](https://github.com/mloetkemann/alpha8-lib/issues/18)) ([2d9866f](https://github.com/mloetkemann/alpha8-lib/commit/2d9866fdf6dae6cae158490a36225fe304982ec2))
+
 # [1.3.0](https://github.com/mloetkemann/alpha8-lib/compare/v1.2.7...v1.3.0) (2023-07-22)
 
 
