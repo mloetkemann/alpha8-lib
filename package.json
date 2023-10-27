@@ -37,7 +37,6 @@
     "@semantic-release/git": "^10.0.1",
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^20.1.0",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
     "chai": "^4.3.7",
@@ -48,7 +47,6 @@
     "mocha": "^10.2.0",
     "prettier": "^2.8.8",
     "semantic-release": "^22.0.5",
-    "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
