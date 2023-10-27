@@ -7,6 +7,7 @@ function readFileAsync(filename: string): Promise<any> {
   return import(filePpath, { assert: { type: 'json' } }).then(
     mod => mod.default
   )
+
 }
 
 interface translationPath {
@@ -66,6 +67,7 @@ class TranslationDataProvider {
     return readFileAsync(filename).then(
       content => (this.translationData = content)
     )
+
   }
 
   public static async getDataProvider(
