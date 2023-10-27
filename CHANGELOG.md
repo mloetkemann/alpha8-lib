@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.2...v1.4.3) (2023-10-27)
+
+
+### Bug Fixes
+
+* unnecessary use of fs ([2473082](https://github.com/mloetkemann/alpha8-lib/commit/24730827a6abc992dc51ee5ecafff4749ff1e9fa))
+
 ## [1.4.2](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.1...v1.4.2) (2023-10-24)
 
 
