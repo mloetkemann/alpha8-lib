@@ -1,20 +1,13 @@
-import fs from 'fs'
-import path from 'path'
 import BibleRegularExpression from './bibleRegularExpression'
 
-const dataPathNodeModules = 'node_modules/alpha8-lib/data/'
-const dataPath = 'data/'
-const encoding: BufferEncoding = 'utf-8'
+const dataPath = '../../data/'
 
-function readFile(filename: string, encoding?: BufferEncoding): string {
-  let filePpath = path.join(dataPathNodeModules, filename)
-  if (fs.existsSync(filePpath))
-    return fs.readFileSync(filePpath, { encoding: encoding }).toString()
+function readFileAsync(filename: string): Promise<any> {
+  const filePpath = `${dataPath}${filename}`
+  return import(filePpath, { assert: { type: 'json' } }).then(
+    mod => mod.default
+  )
 
-  filePpath = path.join(dataPath, filename)
-  if (fs.existsSync(filePpath)) return fs.readFileSync(filePpath).toString()
-
-  throw Error('File not found')
 }
 
 interface translationPath {
@@ -69,19 +62,22 @@ class TranslationDataProvider {
 
   private constructor(private language: string, private translation: string) {}
 
-  private init() {
+  private async init() {
     const filename = `translation_${this.translation}.json`
-    this.translationData = JSON.parse(readFile(filename, encoding))
+    return readFileAsync(filename).then(
+      content => (this.translationData = content)
+    )
+
   }
 
-  public static getDataProvider(
+  public static async getDataProvider(
     language: string,
     translation: string
-  ): TranslationDataProvider {
+  ): Promise<TranslationDataProvider> {
     let result = TranslationDataProvider.instances.get(translation)
     if (!result) {
       result = new TranslationDataProvider(language, translation)
-      result.init()
+      await result.init()
       TranslationDataProvider.instances.set(translation, result)
     }
     return result
@@ -111,10 +107,12 @@ class BookNamesDataProvider {
 
   private constructor(private language: string) {}
 
-  private init() {
+  private async init() {
     const filename = `books_${this.language}.json`
-    this.books = JSON.parse(readFile(filename, encoding))
-    this.buildBookIndex()
+    readFileAsync(filename).then(content => {
+      this.books = content
+      this.buildBookIndex()
+    })
   }
 
   private buildBookIndex() {
@@ -126,11 +124,13 @@ class BookNamesDataProvider {
     })
   }
 
-  public static getDataProvider(language: string): BookNamesDataProvider {
+  public static async getDataProvider(
+    language: string
+  ): Promise<BookNamesDataProvider> {
     let result = BookNamesDataProvider.instances.get(language)
     if (!result) {
       result = new BookNamesDataProvider(language)
-      result.init()
+      await result.init()
       BookNamesDataProvider.instances.set(language, result)
     }
     return result
@@ -157,15 +157,28 @@ class BookNamesDataProvider {
 }
 
 export default class Bible {
-  private bookDataProvider: BookNamesDataProvider
-  private translationDataProvider: TranslationDataProvider
+  private bookDataProvider!: BookNamesDataProvider
+  private translationDataProvider!: TranslationDataProvider
+  providerLoadedPromise: Promise<
+    [BookNamesDataProvider, TranslationDataProvider]
+  >
 
   constructor(private language: string, private translation: string) {
-    this.bookDataProvider = BookNamesDataProvider.getDataProvider(language)
-    this.translationDataProvider = TranslationDataProvider.getDataProvider(
-      language,
-      translation
-    )
+    this.providerLoadedPromise = Promise.all([
+      BookNamesDataProvider.getDataProvider(language).then(
+        bookDataProvider => (this.bookDataProvider = bookDataProvider)
+      ),
+      TranslationDataProvider.getDataProvider(language, translation).then(
+        translationDataProvider =>
+          (this.translationDataProvider = translationDataProvider)
+      ),
+    ])
+  }
+
+  public async providerLoaded(): Promise<
+    [BookNamesDataProvider, TranslationDataProvider]
+  > {
+    return this.providerLoadedPromise
   }
 
   private getBookDataProvider(): BookNamesDataProvider {
@@ -285,12 +298,16 @@ export class BiblePassage {
     return JSON.stringify(this.toRaw())
   }
 
-  static convertToObject(value: BiblePassageRaw | string): BiblePassage {
+  static async convertToObject(
+    value: BiblePassageRaw | string
+  ): Promise<BiblePassage> {
     if (typeof value === 'string') {
       return BiblePassage.convertToObject(JSON.parse(value))
     }
+    const bible = new Bible(value.language, value.translation)
+    await bible.providerLoaded()
     return new BiblePassage(
-      new Bible(value.language, value.translation),
+      bible,
       value.book,
       value.chapter,
       value.verse,
