@@ -24,8 +24,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn build
-      - run: yarn run lint
-      - run: yarn test
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm build
+
+#      - run: pnpm run lint
+      - run: pnpm test

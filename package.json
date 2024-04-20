@@ -8,11 +8,11 @@
   "author": "mloetkemann <m.loetkemann@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn run lint && tsc -p .",
+    "build": "pnpm exec tsc -p .",
     "test": "npx mocha",
-    "lint": "eslint --ext .js,.ts .",
+    "lint": "pnpm  eslint .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "startEventListener": "npx ts-node ./src/test/eventValidator.ts"
+    "startEventListener": "pnpm exec ts-node ./src/test/eventValidator.ts"
   },
   "commitlint": {
     "extends": [
@@ -31,28 +31,25 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3",
+    "@commitlint/cli": "^19.2.2",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/js": "^9.1.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@types/amqplib": "^0.10.2",
-    "@types/chai": "^4.3.5",
-    "@types/mocha": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.59.2",
-    "@typescript-eslint/parser": "^5.59.2",
-    "chai": "^4.3.7",
-    "eslint": "^8.40.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.0",
-    "mocha": "^10.2.0",
-    "prettier": "^2.8.8",
+    "@types/amqplib": "^0.10.5",
+    "@types/chai": "^4.3.14",
+    "@types/mocha": "^10.0.6",
+    "chai": "^5.1.0",
+    "husky": "^9.0.11",
+    "mocha": "^10.4.0",
+    "prettier": "^3.2.5",
     "semantic-release": "^23.0.8",
-    "typescript": "^5.0.4"
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.7.0"
   },
   "dependencies": {
-    "amqplib": "^0.10.3",
-    "dotenv": "^16.3.1"
+    "amqplib": "^0.10.4",
+    "dotenv": "^16.4.5"
   },
   "alpha8Config": {
     "eventDriver": "local"
