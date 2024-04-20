@@ -21,6 +21,7 @@ jobs:
       - run: pnpm build
       - run: pnpm test
       - run: pnpm semantic-release
+      - run: pnpm publish
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
       - run: pnpm publish  --access public
