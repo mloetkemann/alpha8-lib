@@ -24,9 +24,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm build
+          cache: 'npm'
+      - run: npm install
+      - run: npm run build
 
 #      - run: pnpm run lint
-      - run: pnpm test
+      - run: npm run test
