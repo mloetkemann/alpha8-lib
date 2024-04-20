@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.3...v1.4.4) (2024-04-20)
+
+
+### Bug Fixes
+
+* dev dependencies ([6f9954f](https://github.com/mloetkemann/alpha8-lib/commit/6f9954ff57de5870d7e36779443d19bacfd0ffb1))
+
 ## [1.4.3](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.2...v1.4.3) (2023-10-27)
 
 
