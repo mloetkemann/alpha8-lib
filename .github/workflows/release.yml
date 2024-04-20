@@ -21,7 +21,8 @@ jobs:
       - run: pnpm build
       - run: pnpm test
       - run: pnpm semantic-release
-      - run: pnpm publish
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - run: pnpm publish  --access public 
+        env:
+          NODE_AUTH_TOKEN: : ${{ secrets.NPM_TOKEN }}
