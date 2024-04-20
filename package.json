@@ -4,6 +4,9 @@
   "description": "A TypeScript Utility Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "repository": "git@github.com:mloetkemann/alpha8-lib.git",
   "author": "mloetkemann <m.loetkemann@gmail.com>",
   "license": "MIT",
@@ -27,7 +30,6 @@
     "plugins": [
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
-      
       "@semantic-release/git"
     ]
   },
