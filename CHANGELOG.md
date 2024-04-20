@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.5...v1.4.6) (2024-04-20)
+
+
+### Bug Fixes
+
+* remove bible ([#25](https://github.com/mloetkemann/alpha8-lib/issues/25)) ([fa5dae0](https://github.com/mloetkemann/alpha8-lib/commit/fa5dae04c287c579bf9ce57a8dbe969c0eadcd60))
+
 ## [1.4.5](https://github.com/mloetkemann/alpha8-lib/compare/v1.4.4...v1.4.5) (2024-04-20)
 
 
