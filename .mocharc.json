@@ -1,7 +1,7 @@
 {
   "extension": ["ts"],
   "timeout": 5000,
-  "spec": ["./src/**/*.spec.ts"],
+  "spec": ["./src/**/*.spec.*"],
   "exclude": ["**/node_modules/**/*"],
   "require": ["ts-node/register"]
 }
