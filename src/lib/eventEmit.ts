@@ -1,4 +1,4 @@
-import amqp from 'amqplib'
+import * as amqp from 'amqplib'
 import 'dotenv/config'
 
 const ENV_EVENTEMITTER_DRIVER = 'npm_package_alpha8Config_eventDriver'
