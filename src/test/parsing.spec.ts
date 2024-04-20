@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import { parseToNumber, parseToObject, parseToString } from '../lib/parsing'
+import { parseToNumber, parseToObject, parseToString } from '../lib/parsing.js'
 
 describe('parsing', () => {
   it('parse string', async () => {
