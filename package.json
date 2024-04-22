@@ -7,6 +7,13 @@
   "exports": {
     ".": "./dist/index.js"
   },
+  "typesVersions": {
+    "*": {
+      "index.d.ts": [
+        "dist/index.d.ts"
+      ]
+    }
+  },
   "repository": "git@github.com:mloetkemann/alpha8-lib.git",
   "author": "mloetkemann <m.loetkemann@gmail.com>",
   "license": "MIT",
@@ -14,7 +21,7 @@
   "scripts": {
     "build": "pnpm exec tsc -p .",
     "test": "npx mocha",
-    "lint": "pnpm  eslint .",
+    "lint": "pnpm eslint ./src",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "startEventListener": "pnpm exec ts-node ./src/test/eventValidator.ts"
   },
@@ -43,6 +50,7 @@
     "@types/chai": "^4.3.14",
     "@types/mocha": "^10.0.6",
     "chai": "^4.4.1",
+    "eslint": "^9.1.0",
     "husky": "^9.0.11",
     "mocha": "^10.4.0",
     "prettier": "^3.2.5",
