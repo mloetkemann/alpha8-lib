@@ -6,7 +6,7 @@ const ENV_EVENTEMITTER_DRIVER_PRIMARY = 'EVENT_DRIVER'
 const ENV_RABBITMQ_HOST = 'RABBITMQ_HOST'
 const ENV_RABBITMQ_PORT = 'RABBITMQ_PORT'
 
-function get_event_emitter_driver(): string {
+function get_event_emitter_driver() : string {
   let result = process.env[ENV_EVENTEMITTER_DRIVER_PRIMARY]
   if (!result) result = process.env[ENV_EVENTEMITTER_DRIVER]
   if (!result) result = 'local'
@@ -61,11 +61,12 @@ export default class EventEmit {
     //await this.registerEvent('__log') // Log Event which is triggered if any other event is triggerd
   }
 
-  public async registerEvents(events: Array<string>) {
+  public async registerEvents(events: Array<string>) : Promise<void[]> {
     return Promise.all(events.map(event => this.registerEvent(event)))
   }
 
-  public async registerEvent(event: string) {
+  // eslint-disable-next-line @typescript-eslint/require-await
+  public async registerEvent(event: string): Promise<void> {
     if (!this.events.has(event)) {
       this.events.set(event, new Array<EventListenerFunc>())
     } else {
@@ -81,10 +82,10 @@ export default class EventEmit {
   }
 
   async trigger(event: string, parameter?: object) {
-    this.triggerEvent('__all', parameter)
+    await this.triggerEvent('__all', parameter)
     await this.triggerEvent(event, parameter)
 
-    this.triggerEvent('__log', {
+    await this.triggerEvent('__log', {
       __message: `Event ${event} triggered`,
       __loglevel: 'info',
     })
@@ -97,10 +98,11 @@ export default class EventEmit {
     }
   }
 
-  protected triggerEvent(event: string, parameter?: object) {
-    this.notify(event, parameter)
+  protected async triggerEvent(event: string, parameter?: object) {
+    await this.notify(event, parameter)
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   protected async notify(event: string, parameter?: object) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let parameterEntries = new Array<[string, any]>()
@@ -136,15 +138,16 @@ class RabbitMQEventEmitter extends EventEmit {
 
   protected async init() {
     await super.init()
-    return this.connectQueue().then(res => {
+    return this.connectQueue().then((res) => {
       if (res) {
         this.connection = res[0]
         this.channel = res[1]
 
         process.on('SIGINT', function () {
-          res[1].close()
-          res[0].close()
-          process.exit()
+          void Promise.all([
+            res[1].close(),
+            res[0].close()
+          ]).then(() =>   process.exit())
         })
       }
     })
@@ -157,7 +160,7 @@ class RabbitMQEventEmitter extends EventEmit {
       msg => {
         if (msg) {
           const content = Buffer.from(msg.content).toString()
-          this.notify(event, JSON.parse(content))
+          void this.notify(event, JSON.parse(content) as object)
         }
       },
       {
@@ -165,13 +168,13 @@ class RabbitMQEventEmitter extends EventEmit {
       }
     )
   }
-  protected triggerEvent(event: string, parameter?: object | undefined): void {
-    this.sendData(event, parameter)
+  protected async triggerEvent(event: string, parameter?: object | undefined): Promise<void> {
+    await this.sendData(event, parameter)
   }
 
   async sendData(event: string, data?: object) {
     await this.channel?.assertQueue(event, { durable: false })
-    await this.channel?.sendToQueue(event, Buffer.from(JSON.stringify(data)))
+    this.channel?.sendToQueue(event, Buffer.from(JSON.stringify(data)))
   }
 
   public async close() {
