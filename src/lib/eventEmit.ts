@@ -22,8 +22,8 @@ function get_rabbitmq_url(): string {
   }
   return `amqp://${host}:${port}`
 }
-
-export type EventListenerFunc = (param: EventParameter) => void
+ 
+export type EventListenerFunc = (param: EventParameter) => Promise<void>
 export class EventParameter extends Map<string, unknown> {
   getString(key: string): string | undefined {
     const value = this.get(key)
@@ -112,7 +112,7 @@ export default class EventEmit {
     const param = new EventParameter(parameterEntries)
     const eventListener = this.events.get(event)
     if (eventListener) {
-      eventListener.forEach(listener => listener(param))
+      return Promise.all(eventListener.map(async (listener) => { await listener(param) }))
     }
   }
 
@@ -143,6 +143,8 @@ class RabbitMQEventEmitter extends EventEmit {
         this.connection = res[0]
         this.channel = res[1]
 
+        console.log("RabbitMQ connected!")
+
         process.on('SIGINT', function () {
           void Promise.all([
             res[1].close(),
@@ -150,6 +152,9 @@ class RabbitMQEventEmitter extends EventEmit {
           ]).then(() =>   process.exit())
         })
       }
+    }).catch(e => {
+      console.error("Error while connecting to RabbitMQ")
+      console.error(e)
     })
   }
   public async registerEvent(event: string) {

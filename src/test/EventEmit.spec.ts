@@ -8,7 +8,7 @@ describe('Event Emitter', () => {
     called = false
     const emitter = await EventEmit.getEmitter()
     await emitter.registerEvent('event')
-    emitter.on('event', () => (called = true))
+    emitter.on('event', async () => { called = true } )
     await emitter.trigger('event', { __message: 'Test Event' })
     assert.equal(called, true)
   })
@@ -16,7 +16,7 @@ describe('Event Emitter', () => {
     called = false
     const emitter = await EventEmit.getEmitter()
     await emitter.registerEvent('__all')
-    emitter.on('__all', () => (called = true))
+    emitter.on('__all', async  () => { called = true })
     await emitter.trigger('event', { __message: 'Test Event' })
     assert.equal(called, true)
   })
@@ -24,7 +24,7 @@ describe('Event Emitter', () => {
     called = false
     const emitter = await EventEmit.getEmitter()
     await emitter.registerEvent('__log')
-    emitter.on('__log', param => {
+    emitter.on('__log', async  param => {
       if (
         param.get('__message') == 'Test Error' &&
         param.get('__logLevel') == 'error'
