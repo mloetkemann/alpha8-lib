@@ -1,6 +1,6 @@
 {
   "name": "alpha8-lib",
-  "version": "1.4.10",
+  "version": "1.4.11",
   "description": "A TypeScript Utility Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,36 +25,15 @@
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "startEventListener": "pnpm exec ts-node ./src/test/eventValidator.ts"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "release": {
-    "branches": [
-      "main"
-    ],
-    "plugins": [
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/git"
-    ]
-  },
   "devDependencies": {
-    "@commitlint/cli": "^19.2.2",
-    "@commitlint/config-conventional": "^19.2.2",
     "@eslint/js": "^9.1.1",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
     "@types/amqplib": "^0.10.5",
     "@types/chai": "^4.3.14",
     "@types/mocha": "^10.0.6",
-    "chai": "^4.4.1",
+    "chai": "^5.1.0",
     "eslint": "^9.1.0",
-    "husky": "^9.0.11",
     "mocha": "^10.4.0",
     "prettier": "^3.2.5",
-    "semantic-release": "^23.0.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.0"
